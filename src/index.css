@@ -1,0 +1,265 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap');
+:root {
+
+font-family: 'Nunito', sans-serif;
+  color: #35152b;
+  background: #fff4fa;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --pink-light: #fff4fa;
+  --pink-soft: #ffd6ec;
+  --pink: #ff69b4;
+  --pink-neon: #ff00a8;
+  --pink-dark: #c21878;
+  --text: #35152b;
+  --muted: #927587;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top right, #ffd6ec 0%, transparent 38%),
+    var(--pink-light);
+}
+
+a {
+  color: var(--pink-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--pink-neon);
+}
+
+button {
+  font: inherit;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 22px 7%;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 2px solid var(--pink-soft);
+  box-shadow: 0 4px 24px #ff69b414;
+}
+
+.logo {
+  margin: 0;
+  color: var(--pink-neon);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-shadow: 0 0 14px #ff00a82e;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-weight: 650;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 25px;
+  height: 25px;
+  padding: 0 7px;
+  color: white;
+  background: var(--pink-neon);
+  border-radius: 999px;
+  box-shadow: 0 0 12px #ff00a866;
+}
+
+.container {
+  width: min(1100px, 88%);
+  margin: 44px auto;
+}
+
+section {
+  margin-bottom: 44px;
+}
+
+.section-title {
+  margin-bottom: 20px;
+  color: var(--text);
+  font-size: 1.55rem;
+  font-weight: 850;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  padding: 22px;
+  background: var(--white);
+  border: 1px solid #ffc1e3;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px #d6338412;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px #ff00a829;
+}
+
+.vendor-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.thumb {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  color: white;
+  background: linear-gradient(135deg, var(--pink), var(--pink-neon));
+  border-radius: 18px;
+  font-size: 1.6rem;
+  font-weight: 900;
+  box-shadow: 0 0 18px #ff00a833;
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+  color: var(--text);
+}
+
+.muted {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.status {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.status.open {
+  color: #a00062;
+  background: #ffe0f1;
+}
+
+.status.closed {
+  color: #8a304f;
+  background: #ffe7ed;
+}
+
+.menu-card .thumb {
+  margin-bottom: 18px;
+}
+
+.price {
+  color: var(--pink-dark);
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px 18px;
+  color: white;
+  background: linear-gradient(100deg, var(--pink), var(--pink-neon));
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 5px 16px #ff00a833;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 22px #ff00a866;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.footer {
+  margin-top: 60px;
+  padding: 24px;
+  color: var(--muted);
+  background: white;
+  border-top: 2px solid var(--pink-soft);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 20px 6%;
+  }
+
+  .nav {
+    gap: 14px;
+    font-size: 0.9rem;
+  }
+
+  .container {
+    margin: 30px auto;
+  }
+
+  .vendor-card {
+    flex-direction: column;
+  }
+}
+
+/* Cute, rounded headings */
+.logo,
+.section-title,
+.card h2,
+.card h3 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+}
+
+/* Neat, readable text */
+body,
+button,
+input {
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Extra personality for the brand */
+.logo {
+  letter-spacing: -1.2px;
+  font-weight: 900;
+}
