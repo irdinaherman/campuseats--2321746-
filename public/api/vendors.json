@@ -1,0 +1,56 @@
+
+[
+  {
+    "id": "kafe-mahallah-ali",
+    "name": "Kafe Mahallah Ali",
+    "location": "Mahallah Ali, Block C",
+    "openHours": "7:00 am - 10:00 pm",
+    "isOpen": true,
+    "menu": [
+      {
+        "id": "nasi-lemak-ayam",
+        "name": "Nasi Lemak Ayam",
+        "description": "Coconut rice, fried chicken, sambal, egg and peanuts",
+        "price": 7.5,
+        "available": true
+      },
+      {
+        "id": "mee-goreng",
+        "name": "Mee Goreng",
+        "description": "Fried noodles with vegetables and egg",
+        "price": 6,
+        "available": true
+      },
+      {
+        "id": "teh-ais",
+        "name": "Teh Ais",
+        "description": "Chilled Malaysian milk tea",
+        "price": 2.5,
+        "available": false
+      }
+    ]
+  },
+  {
+    "id": "kafe-mahallah-aminah",
+    "name": "Kafe Mahallah Aminah",
+    "location": "Mahallah Aminah",
+    "openHours": "8:00 am - 9:00 pm",
+    "isOpen": true,
+    "menu": [
+      {
+        "id": "nasi-goreng",
+        "name": "Nasi Goreng",
+        "description": "Fried rice with vegetables and egg",
+        "price": 6.5,
+        "available": true
+      },
+      {
+        "id": "roti-canai",
+        "name": "Roti Canai",
+        "description": "Flaky flatbread served with dhal",
+        "price": 2,
+        "available": true
+      }
+    ]
+  }
+]

@@ -1,12 +1,5 @@
 
-function VendorCard() {
-  const vendor = {
-    name: 'Kafe Mahallah Ali',
-    location: 'Mahallah Ali, Block C',
-    openHours: '7:00 am - 10:00 pm',
-    isOpen: true,
-  }
-
+function VendorCard({ vendor }) {
   return (
     <article className="card vendor-card">
       <div className="thumb" aria-hidden="true">

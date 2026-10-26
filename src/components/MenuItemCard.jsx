@@ -1,12 +1,5 @@
 
-function MenuItemCard() {
-  const item = {
-    name: 'Nasi Lemak Ayam',
-    description: 'Coconut rice, fried chicken, sambal, egg and peanuts',
-    price: 7.5,
-    available: true,
-  }
-
+function MenuItemCard({ item }) {
   return (
     <article className="card menu-card">
       <div className="thumb" aria-hidden="true">
