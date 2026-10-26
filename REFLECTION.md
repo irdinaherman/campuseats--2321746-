@@ -1,11 +1,29 @@
-# Week 1 Reflection — CampusEats
+# Week 4 Reflection — CampusEats
 
-This week, I set up my React development environment and started building CampusEats using Vite. I created separate components for the header, vendor card, menu item card, and footer.
+This milestone helped me understand how a React application can load vendor and menu information from a JSON file instead of writing all the data directly into the components. I learned how the `useVendors` hook helps manage the data-loading process and how props allow components to display the relevant vendor and menu information.
 
-One challenge I faced was a Vite import error caused by an incorrectly named component file. I learned that file names and import paths must match exactly. I also learned how to initialise a Git repository, create a commit, and push my project to GitHub.
+One challenge was understanding how the different files work together. I learned that the data source, custom hook, parent component, and reusable child components each have different responsibilities. I also used the production build to check whether the project could compile successfully.
 
-I customised the interface with a pink and neon-pink colour palette and selected fonts to make the design more consistent and readable.
+AI assistance helped me troubleshoot errors and understand the implementation steps. I still need to practise writing React code independently and explaining the purpose of each component and function.
 
-I used AI assistance to troubleshoot errors and understand the setup process. However, I still need to practise writing React components independently and understanding how props and state make components reusable and interactive.
+## Reflection Questions
 
-My next goal is to use props to display different vendors and menu items, then use React state to implement vendor selection and a working cart counter.
+### 1. What is the difference between imperative and declarative UI?
+
+Imperative UI describes the specific steps needed to change the interface. Declarative UI describes what the interface should look like based on the current data and state. React mainly uses a declarative approach.
+
+### 2. Why must React component names start with a capital letter?
+
+Capitalisation allows React to distinguish custom components, such as `VendorCard`, from built-in HTML elements, such as `div` and `button`.
+
+### 3. What is a React fragment (`<>...</>`), and why use it instead of a `div`?
+
+A fragment lets a component return multiple elements without adding an extra DOM element. It is useful when a wrapper `div` is unnecessary.
+
+### 4. What is the benefit of breaking an interface into small components?
+
+Small components make code easier to read, reuse, test, maintain, and update. Each component can focus on a specific part of the interface.
+
+## Next Steps
+
+My next goal is to improve the application with vendor selection and a working cart counter using React state and event handlers.
