@@ -1,35 +1,43 @@
-# AI Usage Log — CampusEats
+# AI Usage Record
 
-## Week 1: Git, Components, Props and State
+## Tool Used
+- **Tool:** ChatGPT
+- **Purpose:** To get help understanding React concepts, solving coding errors, and improving the project.
 
-### AI Tool Used
+## Week 1
 
-ChatGPT
+I used ChatGPT to help me understand the project requirements and get started with React and Vite. I also referred to its suggestions when setting up my project, creating the initial components, and solving some import and setup issues.
 
-### How AI Was Used
+The help included:
+- Understanding the React project structure.
+- Setting up the project using Vite.
+- Creating components such as `Header`, `VendorCard`, `MenuItemCard`, and `Footer`.
+- Getting help with Git and GitHub setup.
 
-- Helped troubleshoot a Vite import error caused by an incorrectly named `MenuItemCard.jsx` file.
-- Explained Git setup, commits, GitHub connection, and pushing changes.
-- Helped me understand how React components such as `Header`, `VendorCard`, `MenuItemCard`, and `Footer` are organised.
-- Suggested styling improvements, including a pink colour palette and font combinations.
+## Week 4
 
-### My Role
+I used ChatGPT as a reference when working on the vendor and menu features. It helped me understand how to load vendor information from a JSON file, use React hooks, and troubleshoot problems during development.
 
-I created and edited the project files, ran commands in my own terminal, and checked the application. I am responsible for understanding, testing, and maintaining the submitted code.
+The help included:
+- Working with vendor and menu data in JSON.
+- Understanding and using the `useVendors` hook.
+- Fixing coding errors and checking the build.
+- Getting guidance on Git commits and tagging.
 
-## Week 4: Loading Vendor and Menu Data
+## Additional Development
 
-### AI Tool Used
+I also referred to ChatGPT when adding my personal feature, Dietary Tags and Filter, for Pink Petal Café.
 
-ChatGPT
+The help included:
+- Understanding how to filter menu items by dietary tags and categories.
+- Improving the search and filter functions.
+- Adding a clear filters button.
+- Improving checkout form validation.
+- Checking cart, checkout, and order functionality.
+- Getting suggestions for improving the layout and styling.
 
-### How AI Was Used
+## My Contribution
 
-- Guided me through loading vendor and menu data from a JSON file.
-- Helped me understand the purpose of the `useVendors` hook and how the application passes vendor and menu data to reusable components.
-- Helped me troubleshoot errors and verify the production build.
-- Guided me through committing and pushing the completed changes to GitHub and creating the `week-4` tag.
+I worked on the project files, made changes to the code, ran the application, and tested the features myself. I also checked the suggestions before using them and made adjustments based on what I needed for my project.
 
-### My Role
-
-I followed the instructions, edited the project files, ran the build and Git commands, and checked the results. I am responsible for testing the application and being able to explain how the code works.
+I am responsible for the final implementation and the work submitted in this project.

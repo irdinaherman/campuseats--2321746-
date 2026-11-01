@@ -1,16 +1,24 @@
+
+import { NavLink } from 'react-router-dom'
+import { useCart } from '../context/CartContext.jsx'
+
 function Header() {
-  const cartCount = 0
+  const { cartCount } = useCart()
 
   return (
     <header className="header">
-      <h1 className="logo">CampusEats</h1>
+      <h1 className="logo">
+        <NavLink to="/">CampusEats</NavLink>
+      </h1>
 
-      <nav className="nav">
-        <a href="#">Vendors</a>
-        <a href="#">My Orders</a>
-        <a href="#" className="cart">
+      <nav className="nav" aria-label="Main navigation">
+        <NavLink to="/">Vendors</NavLink>
+
+        <NavLink to="/orders">My Orders</NavLink>
+
+        <NavLink to="/cart" className="cart">
           Cart <span className="badge">{cartCount}</span>
-        </a>
+        </NavLink>
       </nav>
     </header>
   )

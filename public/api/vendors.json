@@ -1,6 +1,87 @@
 
 [
   {
+    "id": "pink-petal-cafe",
+    "name": "Pink Petal Café",
+    "location": "Taman Sri Gombak",
+    "openHours": "10:00 am - 9:00 pm",
+    "isOpen": true,
+    "menu": [
+      {
+        "id": "petal-chicken-rice",
+        "name": "Petal Chicken Rice",
+        "description": "A student-friendly chicken rice meal",
+        "price": 10.9,
+        "available": true,
+        "category": "Main Course",
+        "dietaryTags": ["High Protein"]
+      },
+      {
+        "id": "pink-sauce-pasta",
+        "name": "Pink Sauce Pasta",
+        "description": "Pasta with a creamy pink sauce",
+        "price": 12.9,
+        "available": true,
+        "category": "Main Course",
+        "dietaryTags": []
+      },
+      {
+        "id": "strawberry-milk",
+        "name": "Strawberry Milk",
+        "description": "Chilled strawberry milk",
+        "price": 7.9,
+        "available": true,
+        "category": "Drinks",
+        "dietaryTags": []
+      },
+      {
+        "id": "iced-chocolate",
+        "name": "Iced Chocolate",
+        "description": "A refreshing iced chocolate drink",
+        "price": 6.9,
+        "available": true,
+        "category": "Drinks",
+        "dietaryTags": []
+      },
+      {
+        "id": "strawberry-cheesecake",
+        "name": "Strawberry Cheesecake",
+        "description": "A sweet strawberry cheesecake dessert",
+        "price": 8.9,
+        "available": true,
+        "category": "Desserts",
+        "dietaryTags": []
+      },
+      {
+        "id": "crispy-mushroom-bites",
+        "name": "Crispy Mushroom Bites",
+        "description": "Crispy golden mushroom bites",
+        "price": 6.5,
+        "available": true,
+        "category": "Sides",
+        "dietaryTags": ["Vegetarian"]
+      },
+      {
+        "id": "creamy-mushroom-soup",
+        "name": "Creamy Mushroom Soup",
+        "description": "Warm and creamy mushroom soup",
+        "price": 6.9,
+        "available": true,
+        "category": "Sides",
+        "dietaryTags": ["Vegetarian"]
+      },
+      {
+        "id": "strawberry-yogurt-parfait",
+        "name": "Strawberry Yogurt Parfait",
+        "description": "Yogurt layered with strawberries",
+        "price": 7.5,
+        "available": true,
+        "category": "Desserts",
+        "dietaryTags": ["Vegetarian"]
+      }
+    ]
+  },
+  {
     "id": "kafe-mahallah-ali",
     "name": "Kafe Mahallah Ali",
     "location": "Mahallah Ali, Block C",
