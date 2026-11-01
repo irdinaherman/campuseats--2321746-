@@ -1,9 +1,8 @@
-
 # CampusEats 🍽️
 
 CampusEats is a React-based food ordering web application developed for the BICS3301 Cross-Platform Software Development course at the International Islamic University Malaysia (IIUM).
 
-The application allows students to browse campus food vendors, explore menus, add food items to a shopping cart, and place orders through a checkout system.
+The application allows students to browse food vendors, explore menus, add food items to a shopping cart, and place orders through a checkout system.
 
 ## Project Information
 
@@ -16,36 +15,41 @@ The application allows students to browse campus food vendors, explore menus, ad
 ## Features
 
 ### 1. Vendor Browsing
-- View available campus food vendors.
+
+- View available food vendors.
 - Open individual vendor menu pages.
 - View vendor locations and opening hours.
-- Handle unavailable vendor pages.
+- Display an error message when a vendor cannot be found.
 
 ### 2. Menu Browsing
+
 - View menu items and their descriptions.
 - Display item prices in Malaysian Ringgit (RM).
 - Identify unavailable or sold-out items.
 - Browse menu categories.
 
 ### 3. Shopping Cart
+
 - Add menu items to the cart.
-- Increase item quantities.
+- Increase or decrease item quantities.
 - Remove items from the cart.
 - Calculate item subtotals and the total price.
-- Preserve cart data using localStorage.
+- Preserve cart data using browser localStorage.
 
 ### 4. Checkout and Orders
+
 - Enter customer name, phone number and delivery address.
 - Validate required checkout information.
 - Place orders and view order summaries.
 - Automatically clear the cart after successful checkout.
-- Preserve order history using localStorage.
+- Preserve order history using browser localStorage.
 
 ### 5. Personal Feature: Dietary Tags and Filter
 
 The personal feature developed for this project allows users to filter menu items according to dietary preferences.
 
 Users can:
+
 - Filter items by dietary tags, such as Vegetarian and High Protein.
 - Filter items by menu category.
 - Search for menu items by name.
@@ -54,11 +58,13 @@ Users can:
 
 ## Vendors
 
-The application currently includes:
+The application currently includes three vendors:
 
-1. **Pink Petal Café** – A café offering meals, drinks, desserts and sides.
-2. **Kafe Mahallah Ali** – A campus food vendor.
-3. **Kafe Mahallah Aminah** – A campus food vendor.
+1. **Pink Petal Café** – My personal shop for this milestone, offering meals, drinks, desserts and sides.
+2. **Kafe Mahallah Ali** – A sample vendor included in the application.
+3. **Kafe Mahallah Aminah** – A sample vendor included in the application.
+
+Pink Petal Café is the main shop used to demonstrate my personal feature, Dietary Tags and Filter.
 
 ## Technologies Used
 
@@ -74,33 +80,42 @@ The application currently includes:
 ## Project Structure
 
 ```text
-src/
-├── components/
-│   ├── CheckoutForm.jsx
-│   ├── Footer.jsx
-│   ├── Header.jsx
-│   ├── Layout.jsx
-│   ├── MenuItemCard.jsx
-│   └── VendorCard.jsx
-├── context/
-│   └── CartContext.jsx
-├── hooks/
-│   ├── useLocalStorage.js
-│   └── useVendors.js
-├── pages/
-│   ├── CartPage.jsx
-│   ├── CheckoutPage.jsx
-│   ├── HomePage.jsx
-│   ├── NotFoundPage.jsx
-│   ├── OrdersPage.jsx
-│   └── VendorPage.jsx
-├── App.jsx
-├── index.css
-└── main.jsx
-
-public/
-└── api/
-    └── vendors.json
+campuseats/
+├── public/
+│   └── api/
+│       └── vendors.json
+│
+├── src/
+│   ├── components/
+│   │   ├── CheckoutForm.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── Layout.jsx
+│   │   ├── MenuItemCard.jsx
+│   │   └── VendorCard.jsx
+│   │
+│   ├── context/
+│   │   └── CartContext.jsx
+│   │
+│   ├── hooks/
+│   │   ├── useLocalStorage.js
+│   │   └── useVendors.js
+│   │
+│   ├── pages/
+│   │   ├── CartPage.jsx
+│   │   ├── CheckoutPage.jsx
+│   │   ├── HomePage.jsx
+│   │   ├── NotFoundPage.jsx
+│   │   ├── OrdersPage.jsx
+│   │   └── VendorPage.jsx
+│   │
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+│
+├── AI_USAGE.md
+├── README.md
+└── package.json
 ```
 
 ## Installation and Setup
@@ -158,7 +173,7 @@ http://localhost:5173/
 
 CampusEats uses browser localStorage to preserve shopping cart items and order history across page refreshes.
 
-The vendor and menu information is loaded from:
+Vendor and menu information is loaded from:
 
 ```text
 public/api/vendors.json
@@ -166,8 +181,12 @@ public/api/vendors.json
 
 ## AI Usage
 
-AI tools were used as development assistance during the project. Further details about AI usage, including the tasks supported by AI, are documented in `AI_USAGE.md`.
+AI tools were used as development assistance during the project. Further details about the tasks supported by AI are documented in `AI_USAGE.md`.
 
 ## Repository
 
-GitHub: https://github.com/irdinaherman/campuseats--2321746-.git
+**GitHub:** https://github.com/irdinaherman/campuseats--2321746-.git
+
+**Branch:** `main`
+
+**Milestone Tag:** `react-done`
