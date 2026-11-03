@@ -2,12 +2,17 @@
 import { useState } from 'react'
 import { useCart } from '../context/CartContext.jsx'
 
-function MenuItemCard({ item }) {
+function MenuItemCard({ item, vendorId, vendorName }) {
   const { addToCart } = useCart()
   const [added, setAdded] = useState(false)
 
   function handleAddToCart() {
-    addToCart(item)
+    addToCart({
+      ...item,
+      vendorId,
+      vendorName,
+    })
+
     setAdded(true)
   }
 
@@ -18,10 +23,15 @@ function MenuItemCard({ item }) {
       </div>
 
       <h3>{item.name}</h3>
+
       <p className="muted">{item.description}</p>
-      <p className="price">RM {item.price.toFixed(2)}</p>
+
+      <p className="price">
+        RM {item.price.toFixed(2)}
+      </p>
 
       <button
+        type="button"
         className="btn"
         disabled={!item.available}
         onClick={handleAddToCart}

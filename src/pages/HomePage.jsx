@@ -25,7 +25,10 @@ function HomePage() {
 
         {!loading && !error && (
           vendors.map((vendor) => (
-            <VendorCard key={vendor.id} vendor={vendor} />
+            <VendorCard
+              key={vendor.id}
+              vendor={vendor}
+            />
           ))
         )}
       </section>
@@ -40,6 +43,8 @@ function HomePage() {
                 <MenuItemCard
                   key={`${vendor.id}-${item.id}`}
                   item={item}
+                  vendorId={vendor.id}
+                  vendorName={vendor.name}
                 />
               ))
             )}

@@ -15,13 +15,26 @@ function CartPage() {
       <h2 className="section-title">My Cart</h2>
 
       {cartItems.length === 0 ? (
-        <p>Your cart is currently empty.</p>
+        <section className="card">
+          <p>Your cart is currently empty.</p>
+
+          <Link to="/" className="btn">
+            Browse Vendors
+          </Link>
+        </section>
       ) : (
         <>
           {cartItems.map((item) => (
-            <article className="card" key={item.id}>
+            <article className="card" key={item.cartKey}>
+              <p className="muted">
+                {item.vendorName || item.vendorId}
+              </p>
+
               <h3>{item.name}</h3>
-              <p className="price">RM {item.price.toFixed(2)}</p>
+
+              <p className="price">
+                RM {item.price.toFixed(2)}
+              </p>
 
               <label>
                 Quantity:
@@ -30,29 +43,36 @@ function CartPage() {
                   min="1"
                   value={item.quantity}
                   onChange={(event) =>
-                    updateQuantity(item.id, Number(event.target.value))
+                    updateQuantity(
+                      item.cartKey,
+                      Number(event.target.value)
+                    )
                   }
                 />
               </label>
 
               <p>
-                Subtotal: RM {(item.price * item.quantity).toFixed(2)}
+                Subtotal: RM{' '}
+                {(item.price * item.quantity).toFixed(2)}
               </p>
 
               <button
+                type="button"
                 className="btn"
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => removeFromCart(item.cartKey)}
               >
                 Remove
               </button>
             </article>
           ))}
 
-          <h3>Total: RM {cartTotal.toFixed(2)}</h3>
+          <section className="card">
+            <h3>Total: RM {cartTotal.toFixed(2)}</h3>
 
-          <Link to="/checkout" className="btn">
-            Proceed to Checkout
-          </Link>
+            <Link to="/checkout" className="btn">
+              Proceed to Checkout
+            </Link>
+          </section>
         </>
       )}
     </main>

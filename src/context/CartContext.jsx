@@ -15,57 +15,80 @@ export function CartProvider({ children }) {
     []
   )
 
+  // Add an item using both vendor ID and menu item ID.
   function addToCart(item) {
+    const cartKey = `${item.vendorId}-${item.id}`
+
     setCartItems((currentItems) => {
       const existingItem = currentItems.find(
-        (cartItem) => cartItem.id === item.id
+        (cartItem) => cartItem.cartKey === cartKey
       )
 
       if (existingItem) {
         return currentItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          cartItem.cartKey === cartKey
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity + 1,
+              }
             : cartItem
         )
       }
 
-      return [...currentItems, { ...item, quantity: 1 }]
+      return [
+        ...currentItems,
+        {
+          ...item,
+          cartKey,
+          quantity: 1,
+        },
+      ]
     })
   }
 
-  function removeFromCart(itemId) {
+  // Remove an item using its unique cart key.
+  function removeFromCart(cartKey) {
     setCartItems((currentItems) =>
-      currentItems.filter((item) => item.id !== itemId)
+      currentItems.filter(
+        (item) => item.cartKey !== cartKey
+      )
     )
   }
 
-  function updateQuantity(itemId, quantity) {
+  // Update the quantity of a specific cart item.
+  function updateQuantity(cartKey, quantity) {
     if (quantity < 1) {
-      removeFromCart(itemId)
+      removeFromCart(cartKey)
       return
     }
 
     setCartItems((currentItems) =>
       currentItems.map((item) =>
-        item.id === itemId ? { ...item, quantity } : item
+        item.cartKey === cartKey
+          ? { ...item, quantity }
+          : item
       )
     )
   }
 
+  // Empty the shopping cart.
   function clearCart() {
     setCartItems([])
   }
 
+  // Calculate total number of items.
   const cartCount = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
   )
 
+  // Calculate the total price.
   const cartTotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   )
 
+  // Save a new order.
   function placeOrder(customerDetails) {
     if (cartItems.length === 0) {
       return
@@ -76,11 +99,27 @@ export function CartProvider({ children }) {
       items: cartItems,
       total: cartTotal,
       customer: customerDetails,
+      status: 'Order Placed',
       date: new Date().toLocaleString(),
     }
 
-    setOrders((currentOrders) => [...currentOrders, newOrder])
+    setOrders((currentOrders) => [
+      ...currentOrders,
+      newOrder,
+    ])
+
     clearCart()
+  }
+
+  // Update an order's status.
+  function updateOrderStatus(orderId, newStatus) {
+    setOrders((currentOrders) =>
+      currentOrders.map((order) =>
+        order.id === orderId
+          ? { ...order, status: newStatus }
+          : order
+      )
+    )
   }
 
   return (
@@ -93,6 +132,7 @@ export function CartProvider({ children }) {
         updateQuantity,
         clearCart,
         placeOrder,
+        updateOrderStatus,
         cartCount,
         cartTotal,
       }}

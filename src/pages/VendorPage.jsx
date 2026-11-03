@@ -23,9 +23,7 @@ function VendorPage() {
   if (error) {
     return (
       <main className="container">
-        <p role="alert">
-          Unable to load vendor: {error}
-        </p>
+        <p role="alert">Unable to load vendor: {error}</p>
       </main>
     )
   }
@@ -48,9 +46,7 @@ function VendorPage() {
 
   const categories = [
     ...new Set(
-      vendor.menu
-        .map((item) => item.category)
-        .filter(Boolean)
+      vendor.menu.map((item) => item.category).filter(Boolean)
     ),
   ]
 
@@ -66,12 +62,11 @@ function VendorPage() {
     const matchesCategory =
       selectedCategory === 'All' ||
       (item.category || '').trim().toLowerCase() ===
-        selectedCategory.trim().toLowerCase()
+      selectedCategory.trim().toLowerCase()
 
-    const matchesSearch =
-      item.name.toLowerCase().includes(
-        searchTerm.trim().toLowerCase()
-      )
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(searchTerm.trim().toLowerCase())
 
     return matchesTag && matchesCategory && matchesSearch
   })
@@ -88,7 +83,10 @@ function VendorPage() {
         <h2 className="section-title">{vendor.name}</h2>
 
         <p className="muted">{vendor.location}</p>
-        <p className="muted">Open: {vendor.openHours}</p>
+
+        <p className="muted">
+          Open: {vendor.openHours}
+        </p>
 
         <h3>Search Menu</h3>
 
@@ -96,9 +94,7 @@ function VendorPage() {
           type="text"
           placeholder="Search for food..."
           value={searchTerm}
-          onChange={(event) =>
-            setSearchTerm(event.target.value)
-          }
+          onChange={(event) => setSearchTerm(event.target.value)}
         />
 
         <h3>Categories</h3>
@@ -162,15 +158,15 @@ function VendorPage() {
         <h3>Menu ({filteredMenu.length} items)</h3>
 
         {filteredMenu.length === 0 ? (
-          <p>
-            No menu items match your search or filters.
-          </p>
+          <p>No menu items match your search or filters.</p>
         ) : (
           <div className="grid">
             {filteredMenu.map((item) => (
               <MenuItemCard
-                key={item.id}
+                key={`${vendor.id}-${item.id}`}
                 item={item}
+                vendorId={vendor.id}
+                vendorName={vendor.name}
               />
             ))}
           </div>

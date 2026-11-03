@@ -16,7 +16,11 @@ function CheckoutPage() {
     return (
       <main className="container">
         <h2 className="section-title">Checkout</h2>
-        <p>Your cart is empty. Please add items before checkout.</p>
+
+        <p>
+          Your cart is empty. Please add items before checkout.
+        </p>
+
         <Link to="/" className="btn">
           Browse Vendors
         </Link>
@@ -32,10 +36,19 @@ function CheckoutPage() {
         <h3>Order Summary</h3>
 
         {cartItems.map((item) => (
-          <p key={item.id}>
-            {item.name} × {item.quantity} — RM{' '}
-            {(item.price * item.quantity).toFixed(2)}
-          </p>
+          <article key={item.cartKey}>
+            <p className="muted">
+              {item.vendorName || item.vendorId}
+            </p>
+
+            <p>
+              {item.name} × {item.quantity}
+            </p>
+
+            <p>
+              RM {(item.price * item.quantity).toFixed(2)}
+            </p>
+          </article>
         ))}
 
         <h3>Total: RM {cartTotal.toFixed(2)}</h3>
