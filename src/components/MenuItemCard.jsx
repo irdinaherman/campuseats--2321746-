@@ -26,6 +26,16 @@ function MenuItemCard({ item, vendorId, vendorName }) {
 
       <p className="muted">{item.description}</p>
 
+      {item.dietaryTags?.length > 0 && (
+        <div className="dietary-tags">
+          {item.dietaryTags.map((tag) => (
+            <span className="dietary-tag" key={tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
       <p className="price">
         RM {item.price.toFixed(2)}
       </p>
