@@ -1,4 +1,13 @@
+
 import { useEffect, useRef, useState } from 'react'
+
+const HOURS = Array.from({ length: 16 }, (_, index) =>
+  String(index + 7).padStart(2, '0')
+)
+
+const MINUTES = Array.from({ length: 60 }, (_, index) =>
+  String(index).padStart(2, '0')
+)
 
 const MAHALLAHS = [
   'Ali',
@@ -11,218 +20,163 @@ const MAHALLAHS = [
   'Zubair',
 ]
 
-const HOURS = Array.from({ length: 16 }, (_, i) =>
-  String(i + 7).padStart(2, '0')
-)
-
-const MINUTES = Array.from({ length: 60 }, (_, i) =>
-  String(i).padStart(2, '0')
-)
-
-function WheelColumn({ options, value, onChange, label }) {
+function WheelColumn({ label, options, value, onChange }) {
   const wheelRef = useRef(null)
-  const itemHeight = 40
 
   useEffect(() => {
     const index = options.indexOf(value)
 
-    if (wheelRef.current && index !== -1) {
-      wheelRef.current.scrollTop = index * itemHeight
+    if (wheelRef.current && index >= 0) {
+      wheelRef.current.scrollTop = index * 40
     }
-  }, [options, value])
+  }, [value, options])
 
   function handleScroll() {
     if (!wheelRef.current) return
 
-    const index = Math.round(
-      wheelRef.current.scrollTop / itemHeight
-    )
-
+    const index = Math.round(wheelRef.current.scrollTop / 40)
     const selected = options[index]
 
-    if (selected !== undefined && selected !== value) {
+    if (selected && selected !== value) {
       onChange(selected)
     }
   }
 
+  function selectOption(option, index) {
+    onChange(option)
+
+    wheelRef.current?.scrollTo({
+      top: index * 40,
+      behavior: 'smooth',
+    })
+  }
+
   return (
-    <div className="time-wheel-column">
-      <span className="time-wheel-label">{label}</span>
+    <div className="wheel-column-wrap">
+      <span className="wheel-label">{label}</span>
 
-      <div className="time-wheel">
-        <div
-          className="time-wheel-list"
-          ref={wheelRef}
-          onScroll={handleScroll}
-        >
-          {options.map((option) => (
-            <button
-              type="button"
-              key={option}
-              className={`time-wheel-option ${
-                option === value ? 'selected' : ''
-              }`}
-              onClick={() => {
-                onChange(option)
-                const index = options.indexOf(option)
-                wheelRef.current?.scrollTo({
-                  top: index * itemHeight,
-                  behavior: 'smooth',
-                })
-              }}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-
-        <div className="time-wheel-highlight" />
+      <div
+        className="time-wheel-column"
+        ref={wheelRef}
+        onScroll={handleScroll}
+      >
+        {options.map((option, index) => (
+          <button
+            type="button"
+            key={option}
+            className={value === option ? 'selected' : ''}
+            onClick={() => selectOption(option, index)}
+          >
+            {option}
+          </button>
+        ))}
       </div>
     </div>
   )
 }
 
 function CheckoutForm({ onSubmit }) {
-  const [customer, setCustomer] = useState({
-    name: '',
-    mahallah: '',
-    pickupTime: '',
-  })
+  const [name, setName] = useState('')
+  const [mahallah, setMahallah] = useState('')
+  const [hour, setHour] = useState('12')
+  const [minute, setMinute] = useState('00')
+  const [error, setError] = useState('')
 
-  const [errors, setErrors] = useState({})
-
-  const [selectedHour, setSelectedHour] = useState('12')
-  const [selectedMinute, setSelectedMinute] = useState('00')
-
-  function handleChange(event) {
-    const { name, value } = event.target
-
-    setCustomer((current) => ({
-      ...current,
-      [name]: value,
-    }))
-
-    setErrors((current) => ({
-      ...current,
-      [name]: '',
-    }))
-  }
+  const pickupTime = `${hour}:${minute}`
 
   function handleSubmit(event) {
     event.preventDefault()
 
-    const pickupTime = `${selectedHour}:${selectedMinute}`
-
-    const newErrors = {}
-
-    if (customer.name.trim().length < 3) {
-      newErrors.name =
-        'Please enter a name with at least 3 characters.'
-    }
-
-    if (!customer.mahallah) {
-      newErrors.mahallah = 'Please choose your mahallah.'
-    }
-
-    if (
-      pickupTime < '07:00' ||
-      pickupTime > '22:00'
-    ) {
-      newErrors.pickupTime =
-        'Pickup time must be between 07:00 and 22:00.'
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
+    if (name.trim().length < 3) {
+      setError('Please enter your full name.')
       return
     }
 
+    if (!mahallah) {
+      setError('Please select your mahallah.')
+      return
+    }
+
+    setError('')
+
     onSubmit({
-      name: customer.name.trim(),
-      mahallah: customer.mahallah,
+      name: name.trim(),
+      mahallah,
       pickupTime,
     })
   }
 
   return (
-    <form className="card" onSubmit={handleSubmit} noValidate>
-      <h2>Checkout</h2>
+    <section className="card checkout-form">
+      <h3>Pickup Details</h3>
 
-      <label htmlFor="name">Name</label>
-      <input
-        id="name"
-        type="text"
-        name="name"
-        placeholder="Enter your name"
-        value={customer.name}
-        onChange={handleChange}
-        aria-invalid={Boolean(errors.name)}
-      />
-      {errors.name && <p role="alert">{errors.name}</p>}
+      <form onSubmit={handleSubmit}>
+        <label>
+          Full Name
+          <input
+            type="text"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="Enter your name"
+          />
+        </label>
 
-      <label htmlFor="mahallah">Mahallah</label>
-      <select
-        id="mahallah"
-        name="mahallah"
-        value={customer.mahallah}
-        onChange={handleChange}
-        aria-invalid={Boolean(errors.mahallah)}
-      >
-        <option value="">Select your mahallah</option>
-        {MAHALLAHS.map((mahallah) => (
-          <option key={mahallah} value={mahallah}>
-            {mahallah}
-          </option>
-        ))}
-      </select>
-      {errors.mahallah && (
-        <p role="alert">{errors.mahallah}</p>
-      )}
+        <label>
+          Mahallah
+          <select
+            value={mahallah}
+            onChange={(event) => setMahallah(event.target.value)}
+          >
+            <option value="">Select your mahallah</option>
+            {MAHALLAHS.map((item) => (
+              <option key={item} value={item}>
+                Mahallah {item}
+              </option>
+            ))}
+          </select>
+        </label>
 
-      <label>Pickup time</label>
+        <div className="pickup-time-section">
+          <label>Pickup Time</label>
 
-      <div className="time-wheel-picker">
-        <WheelColumn
-          label="Hour"
-          options={HOURS}
-          value={selectedHour}
-          onChange={(value) => {
-            setSelectedHour(value)
-            setErrors((current) => ({
-              ...current,
-              pickupTime: '',
-            }))
-          }}
-        />
+          <p className="muted">
+            Scroll to choose your preferred pickup time.
+          </p>
 
-        <span className="time-wheel-colon">:</span>
+          <div className="time-picker">
+            <WheelColumn
+              label="HOUR"
+              options={HOURS}
+              value={hour}
+              onChange={setHour}
+            />
 
-        <WheelColumn
-          label="Minute"
-          options={MINUTES}
-          value={selectedMinute}
-          onChange={(value) => {
-            setSelectedMinute(value)
-            setErrors((current) => ({
-              ...current,
-              pickupTime: '',
-            }))
-          }}
-        />
-      </div>
+            <span className="time-wheel-colon">:</span>
 
-      <p className="muted">
-        Selected pickup time: {selectedHour}:{selectedMinute}
-      </p>
+            <WheelColumn
+              label="MINUTE"
+              options={MINUTES}
+              value={minute}
+              onChange={setMinute}
+            />
+          </div>
 
-      {errors.pickupTime && (
-        <p role="alert">{errors.pickupTime}</p>
-      )}
+          <p className="selected-pickup-time">
+            Your pickup time: {pickupTime}
+          </p>
+        </div>
 
-      <button type="submit" className="btn">
-        Place Order
-      </button>
-    </form>
+        {error && (
+          <p className="form-error" role="alert">
+            {error}
+          </p>
+        )}
+
+        <button type="submit" className="btn">
+          Place Order
+        </button>
+      </form>
+    </section>
   )
 }
 

@@ -5,6 +5,9 @@
     "name": "Pink Petal Café",
     "location": "Taman Sri Gombak",
     "openHours": "10:00 am - 9:00 pm",
+    "stallHours": "10:00 AM – 9:00 PM",
+    "onlineOrderingHours": "10:00 AM – 9:00 PM",
+    "deliveryHours": "10:00 AM – 9:00 PM",
     "isOpen": true,
     "menu": [
       {
@@ -13,8 +16,9 @@
         "description": "A student-friendly chicken rice meal",
         "price": 10.9,
         "available": true,
+        "popular": true,
         "category": "Main Course",
-        "dietaryTags": ["High Protein", "Vegetarian"]
+        "dietaryTags": ["High Protein"]
       },
       {
         "id": "pink-sauce-pasta",
@@ -22,6 +26,7 @@
         "description": "Pasta with a creamy pink sauce",
         "price": 12.9,
         "available": true,
+        "popular": true,
         "category": "Main Course",
         "dietaryTags": []
       },
@@ -31,6 +36,7 @@
         "description": "Chilled strawberry milk",
         "price": 7.9,
         "available": true,
+        "popular": true,
         "category": "Drinks",
         "dietaryTags": []
       },
@@ -86,6 +92,9 @@
     "name": "Kafe Mahallah Ali",
     "location": "Mahallah Ali, Block C",
     "openHours": "7:00 am - 10:00 pm",
+    "stallHours": "7:00 AM – 10:00 PM",
+    "onlineOrderingHours": "7:00 AM – 10:00 PM",
+    "deliveryHours": "7:00 AM – 10:00 PM",
     "isOpen": true,
     "menu": [
       {
@@ -93,21 +102,28 @@
         "name": "Nasi Lemak Ayam",
         "description": "Coconut rice, fried chicken, sambal, egg and peanuts",
         "price": 7.5,
-        "available": true
+        "available": true,
+        "popular": true,
+        "category": "Main Course",
+        "dietaryTags": ["High Protein"]
       },
       {
         "id": "mee-goreng",
         "name": "Mee Goreng",
         "description": "Fried noodles with vegetables and egg",
         "price": 6,
-        "available": true
+        "available": true,
+        "category": "Main Course",
+        "dietaryTags": ["Contains Egg"]
       },
       {
         "id": "teh-ais",
         "name": "Teh Ais",
         "description": "Chilled Malaysian milk tea",
         "price": 2.5,
-        "available": false
+        "available": false,
+        "category": "Drinks",
+        "dietaryTags": []
       }
     ]
   },
@@ -116,6 +132,9 @@
     "name": "Kafe Mahallah Aminah",
     "location": "Mahallah Aminah",
     "openHours": "8:00 am - 9:00 pm",
+    "stallHours": "8:00 AM – 9:00 PM",
+    "onlineOrderingHours": "8:00 AM – 9:00 PM",
+    "deliveryHours": "8:00 AM – 9:00 PM",
     "isOpen": true,
     "menu": [
       {
@@ -123,14 +142,19 @@
         "name": "Nasi Goreng",
         "description": "Fried rice with vegetables and egg",
         "price": 6.5,
-        "available": true
+        "available": true,
+        "popular": true,
+        "category": "Main Course",
+        "dietaryTags": ["Contains Egg"]
       },
       {
         "id": "roti-canai",
         "name": "Roti Canai",
         "description": "Flaky flatbread served with dhal",
         "price": 2,
-        "available": true
+        "available": true,
+        "category": "Sides",
+        "dietaryTags": []
       }
     ]
   }

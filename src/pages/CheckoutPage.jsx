@@ -8,6 +8,10 @@ function CheckoutPage() {
   const navigate = useNavigate()
 
   function handleCheckout(customerDetails) {
+    if (cartItems.length === 0) {
+      return
+    }
+
     placeOrder(customerDetails)
     navigate('/orders')
   }
@@ -16,11 +20,9 @@ function CheckoutPage() {
     return (
       <main className="container">
         <h2 className="section-title">Checkout</h2>
-
         <p>
           Your cart is empty. Please add items before checkout.
         </p>
-
         <Link to="/" className="btn">
           Browse Vendors
         </Link>

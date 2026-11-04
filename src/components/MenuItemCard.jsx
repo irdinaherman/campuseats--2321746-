@@ -22,9 +22,25 @@ function MenuItemCard({ item, vendorId, vendorName }) {
         {item.name.charAt(0)}
       </div>
 
-      <h3>{item.name}</h3>
+      <div className="menu-title-row">
+        <h3>{item.name}</h3>
 
-      <p className="muted">{item.description}</p>
+        {item.popular && (
+          <span className="popular-badge">
+            POPULAR
+          </span>
+        )}
+      </div>
+
+      <p className="muted">
+        {item.description}
+      </p>
+
+      {vendorName && (
+        <p className="muted">
+          From: {vendorName}
+        </p>
+      )}
 
       {item.dietaryTags?.length > 0 && (
         <div className="dietary-tags">

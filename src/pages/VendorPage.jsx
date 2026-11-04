@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import MenuItemCard from '../components/MenuItemCard.jsx'
 import useVendors from '../hooks/useVendors.js'
 
@@ -8,7 +8,10 @@ function VendorPage() {
   const { id } = useParams()
   const { vendors, loading, error } = useVendors()
 
-  const [selectedTags, setSelectedTags] = useState([])
+  // Get dietary tags from the URL
+  const [searchParams, setSearchParams] = useSearchParams()
+  const selectedTags = searchParams.getAll('tag')
+
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -50,14 +53,24 @@ function VendorPage() {
     ),
   ]
 
+  // Update dietary tags in the URL
   function handleTagChange(tag) {
-    setSelectedTags((prev) =>
-      prev.includes(tag)
-        ? prev.filter((item) => item !== tag)
-        : [...prev, tag]
-    )
+    const newTags = selectedTags.includes(tag)
+      ? selectedTags.filter((item) => item !== tag)
+      : [...selectedTags, tag]
+
+    const newParams = new URLSearchParams(searchParams)
+
+    newParams.delete('tag')
+
+    newTags.forEach((item) => {
+      newParams.append('tag', item)
+    })
+
+    setSearchParams(newParams)
   }
 
+  // Filter menu items
   const filteredMenu = vendor.menu.filter((item) => {
     const itemTags = (item.dietaryTags || []).map((tag) =>
       tag.trim().toLowerCase()
@@ -79,8 +92,9 @@ function VendorPage() {
     return matchesTags && matchesCategory && matchesSearch
   })
 
+  // Clear all filters
   function clearFilters() {
-    setSelectedTags([])
+    setSearchParams({})
     setSelectedCategory('All')
     setSearchTerm('')
   }

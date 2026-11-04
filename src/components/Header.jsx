@@ -12,9 +12,13 @@ function Header() {
       </h1>
 
       <nav className="nav" aria-label="Main navigation">
-        <NavLink to="/">Vendors</NavLink>
+        <NavLink to="/" end>
+          Vendors
+        </NavLink>
 
-        <NavLink to="/orders">My Orders</NavLink>
+        <NavLink to="/orders">
+          My Orders
+        </NavLink>
 
         <NavLink to="/cart" className="cart">
           Cart <span className="badge">{cartCount}</span>

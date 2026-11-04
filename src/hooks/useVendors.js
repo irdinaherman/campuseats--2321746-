@@ -24,7 +24,6 @@ function useVendors() {
         }
 
         const data = await response.json()
-
         setVendors(data)
       } catch (err) {
         if (err.name !== 'AbortError') {
@@ -44,11 +43,11 @@ function useVendors() {
     }
   }, [retryCount])
 
-  function retry() {
+  function reload() {
     setRetryCount((count) => count + 1)
   }
 
-  return { vendors, loading, error, retry }
+  return { vendors, loading, error, reload }
 }
 
 export default useVendors
