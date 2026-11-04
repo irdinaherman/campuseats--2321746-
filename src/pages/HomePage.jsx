@@ -4,7 +4,7 @@ import MenuItemCard from '../components/MenuItemCard.jsx'
 import useVendors from '../hooks/useVendors.js'
 
 function HomePage() {
-  const { vendors, loading, error } = useVendors()
+  const { vendors, loading, error, retry } = useVendors()
 
   return (
     <main className="container">
@@ -14,9 +14,18 @@ function HomePage() {
         {loading && <p>Loading vendors...</p>}
 
         {error && (
-          <p role="alert">
-            Unable to load vendors: {error}
-          </p>
+          <div>
+            <p role="alert">
+              Unable to load vendors: {error}
+            </p>
+            <button
+              type="button"
+              className="btn"
+              onClick={retry}
+            >
+              Retry
+            </button>
+          </div>
         )}
 
         {!loading && !error && vendors.length === 0 && (

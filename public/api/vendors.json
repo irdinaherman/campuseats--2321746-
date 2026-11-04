@@ -14,7 +14,7 @@
         "price": 10.9,
         "available": true,
         "category": "Main Course",
-        "dietaryTags": ["High Protein"]
+        "dietaryTags": ["High Protein", "Vegetarian"]
       },
       {
         "id": "pink-sauce-pasta",

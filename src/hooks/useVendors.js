@@ -5,29 +5,50 @@ function useVendors() {
   const [vendors, setVendors] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [retryCount, setRetryCount] = useState(0)
 
   useEffect(() => {
+    const controller = new AbortController()
+
     async function fetchVendors() {
+      setLoading(true)
+      setError(null)
+
       try {
-        const response = await fetch('/api/vendors.json')
+        const response = await fetch('/api/vendors.json', {
+          signal: controller.signal,
+        })
 
         if (!response.ok) {
           throw new Error('Failed to load vendors.')
         }
 
         const data = await response.json()
+
         setVendors(data)
       } catch (err) {
-        setError(err.message)
+        if (err.name !== 'AbortError') {
+          setError(err.message)
+        }
       } finally {
-        setLoading(false)
+        if (!controller.signal.aborted) {
+          setLoading(false)
+        }
       }
     }
 
     fetchVendors()
-  }, [])
 
-  return { vendors, loading, error }
+    return () => {
+      controller.abort()
+    }
+  }, [retryCount])
+
+  function retry() {
+    setRetryCount((count) => count + 1)
+  }
+
+  return { vendors, loading, error, retry }
 }
 
 export default useVendors

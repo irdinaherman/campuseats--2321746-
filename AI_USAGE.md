@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document records the tools and assistance used during the development of CampusEats.
+This document records the external assistance and learning resources referred to during the development of CampusEats.
 
 ## Week 1 – React and Project Setup
 
@@ -26,6 +26,19 @@ The work included:
 - Reviewing dietary tags and filtering functionality.
 - Adding dietary tag chips to menu item cards.
 - Testing the implementation and checking for build errors.
+
+## Week 3 – Forms, Cart and Data Fetching
+
+I referred to external learning assistance while working on the Week 3 lab requirements.
+
+The work included:
+- Working with vendor data stored in JSON.
+- Implementing data fetching using `useEffect`.
+- Handling loading, error and retry states.
+- Working with cart quantity updates and calculations.
+- Improving checkout form validation.
+- Implementing controlled dietary tag checkboxes and filtering.
+- Testing the application and resolving errors.
 
 ## Week 4 – Vendor and Menu Data
 

@@ -20,15 +20,21 @@ function OrdersPage() {
             <p className="muted">{order.date}</p>
 
             <h3>Order Status</h3>
-
             <p className="price">
               {order.status || 'Order Placed'}
             </p>
 
+            <h3>Pickup Details</h3>
+            <p>Name: {order.customer?.name}</p>
+            <p>Mahallah: {order.customer?.mahallah}</p>
+            <p>Pickup Time: {order.customer?.pickupTime}</p>
+
             <h3>Order Items</h3>
 
             {order.items.map((item, index) => (
-              <div key={item.cartKey || `${order.id}-${item.id}-${index}`}>
+              <div
+                key={item.cartKey || `${order.id}-${item.id}-${index}`}
+              >
                 <p className="muted">
                   {item.vendorName || item.vendorId || 'CampusEats Vendor'}
                 </p>
@@ -36,12 +42,14 @@ function OrdersPage() {
                 <p>
                   {item.name} × {item.quantity}
                 </p>
+
+                <p>
+                  RM {(item.price * item.quantity).toFixed(2)}
+                </p>
               </div>
             ))}
 
-            <h3>
-              Total: RM {order.total.toFixed(2)}
-            </h3>
+            <h3>Total: RM {order.total.toFixed(2)}</h3>
           </article>
         ))
       )}

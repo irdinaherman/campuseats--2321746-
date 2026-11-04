@@ -429,3 +429,128 @@ label {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* MINIMAL IPHONE-STYLE PICKUP TIME WHEEL */
+
+.time-wheel-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.time-wheel-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-wheel-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.time-wheel {
+  position: relative;
+  width: 76px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fff4fa;
+  border: 1px solid var(--border);
+}
+
+.time-wheel-list {
+  height: 120px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  padding: 40px 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.time-wheel-list::-webkit-scrollbar {
+  display: none;
+}
+
+.time-wheel-option {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  scroll-snap-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.time-wheel-option.selected {
+  color: var(--pink-dark);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.time-wheel-highlight {
+  position: absolute;
+  top: 40px;
+  left: 4px;
+  right: 4px;
+  height: 40px;
+  border-radius: 9px;
+  background: var(--pink-soft);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.time-wheel-colon {
+  font-size: 22px;
+  font-weight: 800;
+  margin-top: 20px;
+  color: var(--pink-dark);
+}
+
+/* MINIMAL QUANTITY CONTROLS */
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 12px 0;
+}
+
+.quantity-control .btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pink-dark);
+  background: #fff4fa;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  box-shadow: none;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.quantity-control .btn:hover:not(:disabled) {
+  color: white;
+  background: var(--pink);
+  transform: none;
+  box-shadow: none;
+}
+
+.quantity-control span {
+  min-width: 18px;
+  color: var(--text);
+  font-weight: 800;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}

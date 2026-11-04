@@ -12,7 +12,7 @@ function CartPage() {
 
   return (
     <main className="container">
-      <h2 className="section-title">My Cart</h2>
+      <h2 className="section-title">Your Cart</h2>
 
       {cartItems.length === 0 ? (
         <section className="card">
@@ -33,23 +33,34 @@ function CartPage() {
               <h3>{item.name}</h3>
 
               <p className="price">
-                RM {item.price.toFixed(2)}
+                RM {item.price.toFixed(2)} each
               </p>
 
-              <label>
-                Quantity:
-                <input
-                  type="number"
-                  min="1"
-                  value={item.quantity}
-                  onChange={(event) =>
-                    updateQuantity(
-                      item.cartKey,
-                      Number(event.target.value)
-                    )
+              <div className="quantity-control">
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() =>
+                    updateQuantity(item.cartKey, item.quantity - 1)
                   }
-                />
-              </label>
+                  aria-label={`Decrease ${item.name} quantity`}
+                >
+                  −
+                </button>
+
+                <span>{item.quantity}</span>
+
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() =>
+                    updateQuantity(item.cartKey, item.quantity + 1)
+                  }
+                  aria-label={`Increase ${item.name} quantity`}
+                >
+                  +
+                </button>
+              </div>
 
               <p>
                 Subtotal: RM{' '}

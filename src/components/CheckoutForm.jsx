@@ -1,14 +1,98 @@
+import { useEffect, useRef, useState } from 'react'
 
-import { useState } from 'react'
+const MAHALLAHS = [
+  'Ali',
+  'Aminah',
+  'Faruq',
+  'Asiah',
+  'Bilal',
+  'Hafsa',
+  'Uthman',
+  'Zubair',
+]
+
+const HOURS = Array.from({ length: 16 }, (_, i) =>
+  String(i + 7).padStart(2, '0')
+)
+
+const MINUTES = Array.from({ length: 60 }, (_, i) =>
+  String(i).padStart(2, '0')
+)
+
+function WheelColumn({ options, value, onChange, label }) {
+  const wheelRef = useRef(null)
+  const itemHeight = 40
+
+  useEffect(() => {
+    const index = options.indexOf(value)
+
+    if (wheelRef.current && index !== -1) {
+      wheelRef.current.scrollTop = index * itemHeight
+    }
+  }, [options, value])
+
+  function handleScroll() {
+    if (!wheelRef.current) return
+
+    const index = Math.round(
+      wheelRef.current.scrollTop / itemHeight
+    )
+
+    const selected = options[index]
+
+    if (selected !== undefined && selected !== value) {
+      onChange(selected)
+    }
+  }
+
+  return (
+    <div className="time-wheel-column">
+      <span className="time-wheel-label">{label}</span>
+
+      <div className="time-wheel">
+        <div
+          className="time-wheel-list"
+          ref={wheelRef}
+          onScroll={handleScroll}
+        >
+          {options.map((option) => (
+            <button
+              type="button"
+              key={option}
+              className={`time-wheel-option ${
+                option === value ? 'selected' : ''
+              }`}
+              onClick={() => {
+                onChange(option)
+                const index = options.indexOf(option)
+                wheelRef.current?.scrollTo({
+                  top: index * itemHeight,
+                  behavior: 'smooth',
+                })
+              }}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+
+        <div className="time-wheel-highlight" />
+      </div>
+    </div>
+  )
+}
 
 function CheckoutForm({ onSubmit }) {
   const [customer, setCustomer] = useState({
     name: '',
-    phone: '',
-    address: '',
+    mahallah: '',
+    pickupTime: '',
   })
 
   const [errors, setErrors] = useState({})
+
+  const [selectedHour, setSelectedHour] = useState('12')
+  const [selectedMinute, setSelectedMinute] = useState('00')
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -24,75 +108,28 @@ function CheckoutForm({ onSubmit }) {
     }))
   }
 
-  function validateAddress(address) {
-    const parts = address
-      .split(',')
-      .map((part) => part.trim())
-      .filter(Boolean)
-
-    const postcodeAndCity =
-      /\b\d{5}\s+[A-Za-z][A-Za-z\s-]*\b/.test(address)
-
-    const states = [
-      'johor',
-      'kedah',
-      'kelantan',
-      'melaka',
-      'negeri sembilan',
-      'pahang',
-      'penang',
-      'pulau pinang',
-      'perak',
-      'perlis',
-      'sabah',
-      'sarawak',
-      'selangor',
-      'terengganu',
-      'kuala lumpur',
-      'labuan',
-      'putrajaya',
-    ]
-
-    const hasState = states.some((state) =>
-      parts.some((part) =>
-        part.toLowerCase() === state
-      )
-    )
-
-    const hasMalaysia = parts.some(
-      (part) => part.toLowerCase() === 'malaysia'
-    )
-
-    return (
-      parts.length >= 5 &&
-      parts[0].length >= 3 &&
-      parts[1].length >= 3 &&
-      postcodeAndCity &&
-      hasState &&
-      hasMalaysia
-    )
-  }
-
   function handleSubmit(event) {
     event.preventDefault()
 
+    const pickupTime = `${selectedHour}:${selectedMinute}`
+
     const newErrors = {}
 
-    if (!customer.name.trim()) {
-      newErrors.name = 'Please enter your full name.'
+    if (customer.name.trim().length < 3) {
+      newErrors.name =
+        'Please enter a name with at least 3 characters.'
     }
 
-    if (!customer.phone.trim()) {
-      newErrors.phone = 'Please enter your phone number.'
-    } else if (!/^01[0-9]-?[0-9]{7,8}$/.test(customer.phone.trim())) {
-      newErrors.phone = 'Please enter a valid Malaysian mobile number.'
+    if (!customer.mahallah) {
+      newErrors.mahallah = 'Please choose your mahallah.'
     }
 
-    if (!customer.address.trim()) {
-      newErrors.address = 'Please enter your delivery address.'
-    } else if (!validateAddress(customer.address.trim())) {
-      newErrors.address =
-        'Please enter a complete address: building or location, street, postcode and city, state, and Malaysia.'
+    if (
+      pickupTime < '07:00' ||
+      pickupTime > '22:00'
+    ) {
+      newErrors.pickupTime =
+        'Pickup time must be between 07:00 and 22:00.'
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -102,54 +139,85 @@ function CheckoutForm({ onSubmit }) {
 
     onSubmit({
       name: customer.name.trim(),
-      phone: customer.phone.trim(),
-      address: customer.address.trim(),
+      mahallah: customer.mahallah,
+      pickupTime,
     })
   }
 
   return (
     <form className="card" onSubmit={handleSubmit} noValidate>
-      <h2>Checkout Details</h2>
+      <h2>Checkout</h2>
 
-      <label>
-        Full Name
-        <input
-          type="text"
-          name="name"
-          value={customer.name}
-          onChange={handleChange}
-          aria-invalid={Boolean(errors.name)}
-        />
-      </label>
-
+      <label htmlFor="name">Name</label>
+      <input
+        id="name"
+        type="text"
+        name="name"
+        placeholder="Enter your name"
+        value={customer.name}
+        onChange={handleChange}
+        aria-invalid={Boolean(errors.name)}
+      />
       {errors.name && <p role="alert">{errors.name}</p>}
 
-      <label>
-        Phone Number
-        <input
-          type="tel"
-          name="phone"
-          placeholder="0123456789"
-          value={customer.phone}
-          onChange={handleChange}
-          aria-invalid={Boolean(errors.phone)}
+      <label htmlFor="mahallah">Mahallah</label>
+      <select
+        id="mahallah"
+        name="mahallah"
+        value={customer.mahallah}
+        onChange={handleChange}
+        aria-invalid={Boolean(errors.mahallah)}
+      >
+        <option value="">Select your mahallah</option>
+        {MAHALLAHS.map((mahallah) => (
+          <option key={mahallah} value={mahallah}>
+            {mahallah}
+          </option>
+        ))}
+      </select>
+      {errors.mahallah && (
+        <p role="alert">{errors.mahallah}</p>
+      )}
+
+      <label>Pickup time</label>
+
+      <div className="time-wheel-picker">
+        <WheelColumn
+          label="Hour"
+          options={HOURS}
+          value={selectedHour}
+          onChange={(value) => {
+            setSelectedHour(value)
+            setErrors((current) => ({
+              ...current,
+              pickupTime: '',
+            }))
+          }}
         />
-      </label>
 
-      {errors.phone && <p role="alert">{errors.phone}</p>}
+        <span className="time-wheel-colon">:</span>
 
-      <label>
-        Complete Delivery Address
-        <textarea
-          name="address"
-          placeholder="Mahallah Bilal, Jalan Sungai Pusu, 53100 Gombak, Selangor, Malaysia"
-          value={customer.address}
-          onChange={handleChange}
-          aria-invalid={Boolean(errors.address)}
+        <WheelColumn
+          label="Minute"
+          options={MINUTES}
+          value={selectedMinute}
+          onChange={(value) => {
+            setSelectedMinute(value)
+            setErrors((current) => ({
+              ...current,
+              pickupTime: '',
+            }))
+          }}
         />
-      </label>
+      </div>
 
-      {errors.address && <p role="alert">{errors.address}</p>}
+      <p className="muted">
+        Selected pickup time: {selectedHour}:{selectedMinute}
+      </p>
+
+      {errors.pickupTime && (
+        <p role="alert">{errors.pickupTime}</p>
+      )}
 
       <button type="submit" className="btn">
         Place Order
