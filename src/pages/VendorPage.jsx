@@ -8,7 +8,7 @@ function VendorPage() {
   const { id } = useParams()
   const { vendors, loading, error } = useVendors()
 
-  const [selectedTag, setSelectedTag] = useState('All')
+  const [selectedTags, setSelectedTags] = useState([])
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -50,29 +50,37 @@ function VendorPage() {
     ),
   ]
 
+  function handleTagChange(tag) {
+    setSelectedTags((prev) =>
+      prev.includes(tag)
+        ? prev.filter((item) => item !== tag)
+        : [...prev, tag]
+    )
+  }
+
   const filteredMenu = vendor.menu.filter((item) => {
-    const matchesTag =
-      selectedTag === 'All' ||
-      (item.dietaryTags || []).some(
-        (tag) =>
-          tag.trim().toLowerCase() ===
-          selectedTag.trim().toLowerCase()
-      )
+    const itemTags = (item.dietaryTags || []).map((tag) =>
+      tag.trim().toLowerCase()
+    )
+
+    const matchesTags = selectedTags.every((tag) =>
+      itemTags.includes(tag.trim().toLowerCase())
+    )
 
     const matchesCategory =
       selectedCategory === 'All' ||
       (item.category || '').trim().toLowerCase() ===
-      selectedCategory.trim().toLowerCase()
+        selectedCategory.trim().toLowerCase()
 
     const matchesSearch = item.name
       .toLowerCase()
       .includes(searchTerm.trim().toLowerCase())
 
-    return matchesTag && matchesCategory && matchesSearch
+    return matchesTags && matchesCategory && matchesSearch
   })
 
   function clearFilters() {
-    setSelectedTag('All')
+    setSelectedTags([])
     setSelectedCategory('All')
     setSearchTerm('')
   }
@@ -84,9 +92,7 @@ function VendorPage() {
 
         <p className="muted">{vendor.location}</p>
 
-        <p className="muted">
-          Open: {vendor.openHours}
-        </p>
+        <p className="muted">Open: {vendor.openHours}</p>
 
         <h3>Search Menu</h3>
 
@@ -125,25 +131,15 @@ function VendorPage() {
         <h3>Dietary Preferences</h3>
 
         <div className="filter-options">
-          <button
-            type="button"
-            className="btn"
-            aria-pressed={selectedTag === 'All'}
-            onClick={() => setSelectedTag('All')}
-          >
-            All Preferences
-          </button>
-
           {dietaryTags.map((tag) => (
-            <button
-              type="button"
-              className="btn"
-              key={tag}
-              aria-pressed={selectedTag === tag}
-              onClick={() => setSelectedTag(tag)}
-            >
+            <label key={tag}>
+              <input
+                type="checkbox"
+                checked={selectedTags.includes(tag)}
+                onChange={() => handleTagChange(tag)}
+              />
               {tag}
-            </button>
+            </label>
           ))}
         </div>
 
